@@ -10,6 +10,21 @@
 - **安全操作**：危险操作前确认，支持 `--dryrun` 模拟执行
 - **跨平台支持**：Linux、macOS、Windows
 
+## 安装方式
+### 使用 npx 便捷安装
+```
+# 方法一：qoder 全局安装（所有项目可用）
+npx skills add xcaspar/aliyun-cli-skills -g -a qoder
+
+# 方法二：选择目标 agent 安装
+npx skills add xcaspar/aliyun-cli-skills
+
+# 方法三 Clone 仓库复制到目标 skills 目录安装，例如
+git clone https://github.com/xcaspar/aliyun-cli-skills.git
+
+cp -R aliyun-cli-skills .qoder/skills/
+```
+
 ## 前置配置
 使用前请先调用此 skill ，自然语言描述：安装和配置 aliyun cli 即可。
 
