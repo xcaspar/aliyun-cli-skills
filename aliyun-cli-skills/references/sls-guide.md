@@ -31,7 +31,7 @@ SLS（Simple Log Service）是 ROA 风格的 API，是阿里云 CLI 最常用的
 aliyun sls PutLogs \
   --logstore <logstore名> \
   --project <project名> \
-  --body '[{
+  --body '{"Logs": [{
     "Time": <当前Unix时间戳>,
     "Contents": [
       {"Key": "id", "Value": "10234"},
@@ -39,8 +39,10 @@ aliyun sls PutLogs \
       {"Key": "tags", "Value": "[\"dev\", \"ops\"]"},
       {"Key": "addr", "Value": "{\"city\": \"杭州\"}"}
     ]
-  }]'
+  }]}'
 ```
+
+**注意**：`--body` 的顶层结构必须是 **LogGroup 对象** `{"Logs": [...]}`，而**不是**裸数组 `[...]`。若传入裸数组会报错 `cannot unmarshal array into Go value of type sls.LogGroup`。
 
 **获取当前时间戳**：执行 `date +%s` 获取当前 Unix 时间戳，用于 Time 字段。
 
@@ -57,16 +59,16 @@ aliyun sls PutLogs \
 
 ### 批量写入
 
-PutLogs 支持一次写入多条日志，将多个日志对象放入数组即可：
+PutLogs 支持一次写入多条日志，将多个日志对象放入 `Logs` 数组即可：
 
 ```bash
 aliyun sls PutLogs \
   --logstore my-logstore \
   --project my-project \
-  --body '[
+  --body '{"Logs": [
     {"Time": 1234567890, "Contents": [{"Key": "msg", "Value": "log1"}]},
     {"Time": 1234567891, "Contents": [{"Key": "msg", "Value": "log2"}]}
-  ]'
+  ]}'
 ```
 
 ---
